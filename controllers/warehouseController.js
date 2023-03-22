@@ -13,3 +13,19 @@ exports.index = (_req, res) => {
       res.status(400).send(`Error retrieving Warehouses: ${err}`)
     );
 };
+
+
+exports.singleWarehouse = (req, res) => {
+    knex('warehouse')
+    .where(id, req.params.id)
+    .then((data) => {
+        if (data.length <= 0) {
+            return res.status(404).send(`Record with id: ${req.params.id} is not found`);
+        }
+        // otherwise send a the record
+        res.status(200).json(data[0]);
+    })
+    .catch((err) => {
+        res.status(400).send(`Error in retrieving warehouse ${req.params.id} ${err}`);
+    })
+}
