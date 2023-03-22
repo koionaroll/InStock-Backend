@@ -21,7 +21,7 @@ exports.singleWarehouse = (req, res) => {
         if (data.length <= 0) {
             return res.status(404).send(`Record with id: ${req.params.id} is not found`);
         }
-        // otherwise send a the record
+        // we need to index the first element becasue the return result is an array
         res.status(200).json(data[0]);
     })
     .catch((err) => {
