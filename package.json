@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon index.js",
     "migrate": "knex migrate:latest",
     "migrate:down": "knex migrate:down",
     "migrate:rollback": "knex migrate:rollback",
@@ -19,10 +19,7 @@
     "knex": "^2.4.2",
     "mysql": "^2.18.1",
     "mysql2": "^3.2.0",
-    "nodemon": "^2.0.21",
+    "nodemon": "^2.0.22",
     "uuid": "^9.0.0"
   }
 }
-
-
-

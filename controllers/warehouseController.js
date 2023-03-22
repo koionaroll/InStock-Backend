@@ -14,10 +14,9 @@ exports.index = (_req, res) => {
     );
 };
 
-
 exports.singleWarehouse = (req, res) => {
-    knex('warehouse')
-    .where(id, req.params.id)
+    knex('warehouses')
+    .where({id: req.params.id})
     .then((data) => {
         if (data.length <= 0) {
             return res.status(404).send(`Record with id: ${req.params.id} is not found`);
