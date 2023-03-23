@@ -28,3 +28,17 @@ exports.singleWarehouse = (req, res) => {
         res.status(400).send(`Error in retrieving warehouse ${req.params.id} ${err}`);
     })
 }
+
+exports.warehouseInventory = (req, res) => {
+  knex ('inventories')
+  .where({warehouse_id: req.params.id})
+  .then((data) => { 
+    if (data.length <= 0) {
+      return res.status(404).send(`Record with id: ${req.params.id} is not found`);
+  }   
+    res.status(200).json(data);
+})
+  .catch((err) => {
+    res.status(400).send(`Error in retrieving warehouse inventory ${req.params.id} ${err}`);
+})
+}
