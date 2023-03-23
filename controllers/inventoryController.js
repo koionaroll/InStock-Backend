@@ -23,3 +23,15 @@ exports.singleInventory = (req, res) => {
        res.status(400).send(`Error in retrieving inventory item: ${req.params.id} ${err}`);
    })
 };
+
+exports.deleteInventory = (req, res) => {
+    knex('inventories')
+      .delete()
+      .where({ id: req.params.id })
+      .then(() => {
+        res.status(204).send();
+      })
+      .catch((err) =>
+        res.status(400).send(`Error deleting Inventory ${req.params.id} ${err}`)
+      );
+  };
