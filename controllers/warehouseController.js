@@ -1,4 +1,5 @@
 const knex = require('knex')(require('../knexfile'));
+const { v4: uuidv4 } = require('uuid');
 
 
 // What is index?
@@ -54,3 +55,35 @@ exports.deleteWarehouse = (req, res) => {
       res.status(400).send(`Error deleting Warehouse ${req.params.id} ${err}`)
     );
 };
+
+exports.newWarehouse = (req, res) => {
+console.log(req.body)
+    if (!req.body.warehouse_name || !req.body.address || !req.body.city || !req.body.country || !req.body.contact_name || !req.body.contact_position
+       || !req.body.contact_phone || !req.body.contact_email) {
+        return res.status(400).send("Counld not add new warehouse. Please fill in all of the missing fields");
+    }
+
+    // "warehouse_name": "Chicago",
+    // "address": "3218 Guess Rd",
+    // "city": "Chicago",
+    // "country": "USA",
+    // "contact_name": "Jameson Schuppe",
+    // "contact_position": "Warehouse Manager",
+    // "contact_phone": "+1 (919) 797-2875",
+    // "contact_email": "jschuppe@instock.com"
+    
+    const newWarehouse = req.body;
+    newWarehouse.id = uuidv4();
+
+    knex("warehouses")
+    .insert(newWarehouse)
+    .then(data => {
+        res.status(201).send("Warehouse successfully created!");
+        
+    })
+    .catch((err) => {
+        res.status(400).send(`Error in creating new warehouse ${err}`);
+    })
+    
+
+}

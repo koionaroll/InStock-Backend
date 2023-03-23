@@ -6,6 +6,7 @@ const PORT = process.env.PORT || 5050;
 // app.get('/', (req, res) => {
 //   res.send('Welcome to my API');
 // });
+app.use(express.json())
 const warehouseRoutes = require('./routes/warehouseRoute');
 const inventoryRoutes = require('./routes/inventoryRoute');
 

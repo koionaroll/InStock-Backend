@@ -3,11 +3,13 @@ const warehouseController = require('../controllers/warehouseController');
 
 router
     .route('/')
-    .get(warehouseController.index);
+    .get(warehouseController.index)
+    .post(warehouseController.newWarehouse);
 
 router
     .route('/:id')
     .get(warehouseController.singleWarehouse);
+ 
 
 router
     .route('/:id/inventories')
