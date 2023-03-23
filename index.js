@@ -1,4 +1,5 @@
-const express = require('express');
+const express = require("express");
+const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT || 5050;
 
@@ -6,10 +7,10 @@ const PORT = process.env.PORT || 5050;
 // app.get('/', (req, res) => {
 //   res.send('Welcome to my API');
 // });
-const warehouseRoutes = require('./routes/warehouseRoute');
+const warehouseRoutes = require("./routes/warehouseRoute");
 
-app.use('/warehouses', warehouseRoutes);
-
+app.use(cors());
+app.use("/warehouses", warehouseRoutes);
 
 app.listen(PORT, () => {
   console.log(`running at http://localhost:${PORT}`);
