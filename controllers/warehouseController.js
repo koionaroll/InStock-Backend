@@ -28,3 +28,15 @@ exports.singleWarehouse = (req, res) => {
         res.status(400).send(`Error in retrieving warehouse ${req.params.id} ${err}`);
     })
 }
+
+exports.deleteWarehouse = (req, res) => {
+  knex('warehouses')
+    .delete()
+    .where({ id: req.params.id })
+    .then(() => {
+      res.status(204).send();
+    })
+    .catch((err) =>
+      res.status(400).send(`Error deleting Warehouse ${req.params.id} ${err}`)
+    );
+};
