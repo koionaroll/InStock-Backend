@@ -7,7 +7,11 @@ router
 
 router
     .route('/:id')
-    .get(warehouseController.singleWarehouse)
+    .get(warehouseController.singleWarehouse);
+
+router
+    .route('/:id/inventories')
+    .get(warehouseController.warehouseInventory)
     .delete(warehouseController.deleteWarehouse);
 
 module.exports = router;
