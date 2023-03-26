@@ -1,12 +1,15 @@
 const express = require('express');
 const app = express();
+var cors = require('cors')
 const PORT = process.env.PORT || 5050;
 
 // basic home route
 // app.get('/', (req, res) => {
 //   res.send('Welcome to my API');
 // });
-app.use(express.json())
+
+app.use(cors());
+app.use(express.json());
 const warehouseRoutes = require('./routes/warehouseRoute');
 const inventoryRoutes = require('./routes/inventoryRoute');
 
