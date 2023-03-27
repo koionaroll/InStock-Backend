@@ -98,9 +98,12 @@ exports.editWarehouse = (req, res ) => {
     }
 
     updatedWarehouse = req.body;
-
+    req.body.id = req.params.id;
+    console.log(req.body.id)
+    // updatedWarehouse.id = uuidv4();
+    console.log(updatedWarehouse)
     knex("warehouses")
-    .update(req.body)
+    .update(updatedWarehouse)
     .where({id: req.body.id})
     .then(() => {
         res.status(201).send("Recode successfully updated");
