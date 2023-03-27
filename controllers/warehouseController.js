@@ -71,7 +71,7 @@ console.log(req.body)
     // "contact_position": "Warehouse Manager",
     // "contact_phone": "+1 (919) 797-2875",
     // "contact_email": "jschuppe@instock.com"
-    
+
     const newWarehouse = req.body;
     newWarehouse.id = uuidv4();
 
@@ -86,4 +86,29 @@ console.log(req.body)
     })
     
 
+}
+
+exports.editWarehouse = (req, res ) => {
+
+    // check if any of the inputs coming from the front end form are empty
+    // return error if so
+    if (!req.body.warehouse_name || !req.body.address || !req.body.city || !req.body.country || !req.body.contact_name || !req.body.contact_position
+        || !req.body.contact_phone || !req.body.contact_email) {
+         return res.status(400).send("Counld not add new warehouse. Please fill in all of the missing fields");
+    }
+
+    updatedWarehouse = req.body;
+    req.body.id = req.params.id;
+    console.log(req.body.id)
+    // updatedWarehouse.id = uuidv4();
+    console.log(updatedWarehouse)
+    knex("warehouses")
+    .update(updatedWarehouse)
+    .where({id: req.body.id})
+    .then(() => {
+        res.status(201).send("Recode successfully updated");
+    })
+    .catch((err) => {
+        res.status(401).send(`Error in updated warehouse with id ${req.params.id}. The error is: ${err}`);
+    })
 }

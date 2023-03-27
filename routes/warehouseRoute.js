@@ -8,8 +8,12 @@ router
 
 router
     .route('/:id')
-    .get(warehouseController.singleWarehouse);
+    .get(warehouseController.singleWarehouse)
+    .put(warehouseController.editWarehouse);
  
+// router
+//     .route('/edit/:id')
+//     .put(warehouseController.editWarehouse)
 
 router
     .route('/:id/inventories')
