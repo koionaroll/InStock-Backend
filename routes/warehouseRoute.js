@@ -19,7 +19,10 @@ router
 router
     .route('/:id/inventories')
     .get(warehouseController.warehouseInventory)
-    
+
+    .delete(warehouseController.deleteWarehouse)
+    .post(warehouseController.newInventory);
+
 
 module.exports = router;
 
