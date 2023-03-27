@@ -8,4 +8,5 @@ router
     .get(inventoryController.singleInventory)
     .delete(inventoryController.deleteInventory);
 
+
 module.exports = router;
