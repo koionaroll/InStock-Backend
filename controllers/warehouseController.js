@@ -15,6 +15,17 @@ exports.index = (_req, res) => {
     );
 };
 
+// get request that returns the warehouse names
+// exports.getWarehouseNames = (req, res) => {
+//     knex("warehouses")
+//     .then(data => {
+//         res.status(200).json(data.warehouse_name)
+//     })
+//     .catch(err => {
+//         console.log(`could not find warehouse names ${err}`)
+//     });
+// };
+
 exports.singleWarehouse = (req, res) => {
     knex('warehouses')
     .where({id: req.params.id})
@@ -41,38 +52,6 @@ exports.warehouseInventory = (req, res) => {
     })
     .catch((err) => {
         res.status(400).send(`Error in retrieving warehouse inventory ${req.params.id} ${err}`);
-    })
-}
-
-exports.newInventory = (req, res) => {
-
-    // {
-    //     "warehouse_id": "bfc9bea7-66f1-44e9-879b-4d363a888eb4",
-    //     "item_name": "Paper Towels",
-    //     "description": "Made out of military-grade synthetic materials, these paper towels are highly flammable, yet water resistant, and easy to clean.",
-    //     "category": "Gear",
-    //     "status": "Out of Stock",
-    //     "quantity": "0"
-    //   }
-
-    let newItem = req.body;
-
-    if (!newItem.item_name || !newItem.description || !newItem.category || !newItem.status || !newItem.quantity) {
-        return res.status(400).send(`Could not add a new inventory item. Make sure to fill in all of the missing fields`);
-    }
-
-    // give the new inventory item a new id
-    newItem.id = uuidv4();
-    newItem.warehouse_id = req.params.id;
-    knex("inventories")
-    // .where({warehouse_id: req.params.id})
-    .insert(newItem)
-    .then(data => {
-        // console.log(data);
-        res.status(201).send(`inventory successfully created and added to warehosue with Id ${req.params.id}`);
-    })
-    .catch(err => {
-        console.log(`Could not add new inventory item ${err}`);
     })
 }
 
@@ -120,13 +99,15 @@ console.log(req.body)
 
 }
 
+
+
 exports.editWarehouse = (req, res ) => {
 
     // check if any of the inputs coming from the front end form are empty
     // return error if so
     if (!req.body.warehouse_name || !req.body.address || !req.body.city || !req.body.country || !req.body.contact_name || !req.body.contact_position
         || !req.body.contact_phone || !req.body.contact_email) {
-         return res.status(400).send("Counld not add new warehouse. Please fill in all of the missing fields");
+         return res.status(400).send("Counld not edit warehouse. Please fill in all of the missing fields");
     }
 
     updatedWarehouse = req.body;
